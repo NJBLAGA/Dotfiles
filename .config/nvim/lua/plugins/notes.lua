@@ -4,10 +4,15 @@ return {
     opts = {
       spec = {
         ["<leader>N"] = { name = "📝 Notes" },
-        ["<leader>Nc"] = { desc = "Create New Note" },
-        ["<leader>No"] = { desc = "Open Note(s)" },
-        ["<leader>Nr"] = { desc = "Rename Note" },
-        ["<leader>Nd"] = { desc = "Delete Note(s)" },
+        ["<leader>No"] = { desc = "📂 Open Note(s)" },
+        ["<leader>Nc"] = { desc = "📄 Create New Note" },
+        ["<leader>Nr"] = { desc = "✏️ Rename Note" },
+        ["<leader>Nd"] = { desc = "🗑️ Delete Note(s)" },
+
+        -- Git submenu under Ng
+        ["<leader>Ng"] = { name = "🔧 Git" },
+        ["<leader>Ngc"] = { desc = "📝 Commit Changes" },
+        ["<leader>Ngp"] = { desc = "🚀 Push to GitHub" },
       },
     },
   },
@@ -21,6 +26,7 @@ return {
 
           vim.ui.input({ prompt = "Enter new note name:" }, function(input)
             if not (input and #input > 0) then
+              vim.notify("❌ No note name provided.", vim.log.levels.WARN)
               return
             end
 
@@ -99,9 +105,9 @@ return {
                         vim.api.nvim_buf_set_lines(0, insert_pos, insert_pos, false, insert_lines)
 
                         vim.cmd("write")
-                        vim.notify("Linked " .. #insert_lines .. " note(s).")
+                        vim.notify("✅ Linked " .. #insert_lines .. " note(s).")
                       else
-                        vim.notify("No notes linked.", vim.log.levels.WARN)
+                        vim.notify("❌ No notes linked.", vim.log.levels.WARN)
                       end
                     end)
 
@@ -110,11 +116,12 @@ return {
                 })
               else
                 vim.cmd("write")
+                vim.notify("✅ Note created without links.")
               end
             end)
           end)
         end,
-        desc = "Create New Note",
+        desc = "📄 Create New Note",
       },
 
       {
@@ -143,13 +150,14 @@ return {
                     vim.cmd("tabnew " .. vim.fn.fnameescape(entry.path))
                   end
                 end
+                vim.notify("✅ Opened note(s).")
               end)
 
               return true
             end,
           })
         end,
-        desc = "Open Note(s)",
+        desc = "📂 Open Note(s)",
       },
 
       {
@@ -175,20 +183,16 @@ return {
                       local old_path = entry.path
                       local new_path = notes_dir .. "/" .. new_name .. ".md"
 
-                      -- Rename file on disk
                       local ok, err = vim.loop.fs_rename(old_path, new_path)
                       if not ok then
-                        vim.notify("Rename failed: " .. err, vim.log.levels.ERROR)
+                        vim.notify("❌ Rename failed: " .. err, vim.log.levels.ERROR)
                         return
                       end
 
-                      -- Update H1 header in file content
-                      local buf = vim.api.nvim_create_buf(false, true)
                       vim.cmd("edit " .. vim.fn.fnameescape(new_path))
                       local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
                       if #lines > 0 then
-                        -- Find line starting with # 📝 and replace name
                         for i, line in ipairs(lines) do
                           if line:match("^# 📝 ") then
                             lines[i] = "# 📝 " .. new_name
@@ -200,8 +204,9 @@ return {
                       vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
                       vim.cmd("write")
 
-                      vim.notify("Renamed to " .. new_name)
-                      vim.cmd("edit " .. vim.fn.fnameescape(new_path))
+                      vim.notify("✅ Renamed to " .. new_name)
+                    else
+                      vim.notify("❌ Rename aborted: No name entered", vim.log.levels.WARN)
                     end
                   end)
                 end
@@ -211,7 +216,7 @@ return {
             end,
           })
         end,
-        desc = "Rename Note",
+        desc = "✏️ Rename Note",
       },
 
       {
@@ -249,11 +254,13 @@ return {
                       for _, file in ipairs(files_to_delete) do
                         local ok, err = os.remove(file)
                         if not ok then
-                          vim.notify("Failed to delete: " .. err, vim.log.levels.ERROR)
+                          vim.notify("❌ Failed to delete: " .. err, vim.log.levels.ERROR)
                         else
-                          vim.notify("Deleted: " .. vim.fn.fnamemodify(file, ":t"))
+                          vim.notify("✅ Deleted: " .. vim.fn.fnamemodify(file, ":t"))
                         end
                       end
+                    else
+                      vim.notify("❌ Deletion cancelled.", vim.log.levels.INFO)
                     end
                   end
                 )
@@ -263,7 +270,78 @@ return {
             end,
           })
         end,
-        desc = "Delete Note(s)",
+        desc = "🗑️ Delete Note(s)",
+      },
+
+      {
+        "<leader>Ngc",
+        function()
+          local notes_dir = vim.fn.expand("~/Dev/Notes")
+          vim.ui.input({ prompt = "Git Commit Message:" }, function(commit_msg)
+            if not (commit_msg and #commit_msg > 0) then
+              vim.notify("❌ Aborted: Empty commit message", vim.log.levels.WARN)
+              return
+            end
+
+            vim.system({ "git", "-C", notes_dir, "add", "." }, {}, function(add_err)
+              if add_err.code ~= 0 then
+                vim.notify("❌ Git add failed", vim.log.levels.ERROR)
+                return
+              end
+
+              vim.system({ "git", "-C", notes_dir, "commit", "-m", commit_msg }, {}, function(commit_err)
+                if commit_err.code ~= 0 then
+                  vim.notify("❌ Git commit failed", vim.log.levels.ERROR)
+                else
+                  vim.notify("✅ Committed to Git: " .. commit_msg)
+                end
+              end)
+            end)
+          end)
+        end,
+        desc = "📝 Commit Changes",
+      },
+
+      {
+        "<leader>Ngp",
+        function()
+          local notes_dir = vim.fn.expand("~/Dev/Notes")
+
+          local width = math.floor(vim.o.columns * 0.6)
+          local height = math.floor(vim.o.lines * 0.3)
+          local row = math.floor((vim.o.lines - height) / 2 - 1)
+          local col = math.floor((vim.o.columns - width) / 2)
+
+          local buf = vim.api.nvim_create_buf(false, true)
+          local win = vim.api.nvim_open_win(buf, true, {
+            relative = "editor",
+            width = width,
+            height = height,
+            row = row,
+            col = col,
+            style = "minimal",
+            border = "rounded",
+          })
+
+          vim.fn.termopen({ "git", "-C", notes_dir, "push", "origin", "main" }, {
+            on_exit = function(_, exit_code, _)
+              vim.schedule(function()
+                if exit_code == 0 then
+                  vim.notify("✅ Git push succeeded!", vim.log.levels.INFO)
+                else
+                  vim.notify("❌ Git push failed!", vim.log.levels.ERROR)
+                end
+                if vim.api.nvim_win_is_valid(win) then
+                  vim.api.nvim_win_close(win, true)
+                end
+              end)
+            end,
+          })
+
+          vim.api.nvim_set_current_win(win)
+          vim.cmd("startinsert")
+        end,
+        desc = "🚀 Push to GitHub",
       },
     },
   },
