@@ -1,0 +1,48 @@
+# Main Colors
+unrecognized_file: "#f28fad"   # vibrant rosewater pink
+recognized_file: "#f5c67a"     # bright peach/gold
+executable_file: "#98d386"     # lively green
+dir: "#89b4fa"                 # vibrant blue
+
+# Link
+dead_link: "#f38ba8"           # strong pink/red
+link: "#74c7ec"                # bright sapphire blue
+
+# special files
+socket: "#a6e3a1"              # fresh green
+blockdev: "#a6e3a1"            # fresh green
+chardev: "#a6e3a1"             # fresh green
+
+# Access Modes
+write: "#89b4fa"               # vibrant blue
+read: "#98d386"                # lively green
+exec: "#f5c67a"                # bright peach/gold
+no_access: "#f28fad"           # vibrant rosewater pink
+
+# Age
+day_old: "#55efc4"             # minty bright
+hour_old: "#3ddbd9"            # bright teal/cyan
+no_modifier: "#98d386"         # lively green
+
+# File Size
+file_large: "#d9e0ee"          # light pastel text
+file_medium: "#d9e0ee"         # light pastel text
+file_small: "#d9e0ee"          # light pastel text
+
+# Random
+report: "#d9e0ee"              # light pastel text
+user: "#89b4fa"                # vibrant blue
+tree: "#74c7ec"                # bright sapphire blue
+empty: "#f9e2af"               # soft yellow/peach
+error: "#f28fad"               # vibrant rosewater pink
+normal: "#fab387"              # warm peach
+inode: "#b4befe"               # soft lavender
+
+# Git
+addition: "#a6e3a1"            # fresh green
+modification: "#f5c67a"        # bright peach/gold
+deletion: "#f28fad"            # vibrant rosewater pink
+untracked: "#fab387"           # warm peach
+unchanged: "#98d386"           # lively green
+
+

@@ -1,0 +1,83 @@
+* {
+	background-image: none;
+	box-shadow: none;
+	font-size: 25px;
+}
+
+window {
+	background-color: rgba(30, 30, 46, 0.9); /* #1E1E2E */
+}
+
+button {
+	border-radius: 0;
+	border-color: #313244; /* surface */
+	text-decoration-color: #FFFFFF; /* white text decoration */
+	color: #FFFFFF; /* white text & icon color */
+	background-color: #313244; 
+	border-style: solid;
+	border-width: 1px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 15%;
+}
+
+/* Lock */
+#lock {
+	background-image: image(url("/usr/share/wlogout/icons/lock.png"), url("/usr/local/share/wlogout/icons/lock.png"));
+}
+
+#lock:focus, #lock:active, #lock:hover {
+	background-color: #89B4FA; /* Blue */
+	color: #FFFFFF;
+}
+
+/* Logout */
+#logout {
+	background-image: image(url("/usr/share/wlogout/icons/logout.png"), url("/usr/local/share/wlogout/icons/logout.png"));
+}
+
+#logout:focus, #logout:active, #logout:hover {
+	background-color: #CBA6F7; /* Mauve */
+	color: #FFFFFF;
+}
+
+/* Suspend */
+#suspend {
+	background-image: image(url("/usr/share/wlogout/icons/suspend.png"), url("/usr/local/share/wlogout/icons/suspend.png"));
+}
+
+#suspend:focus, #suspend:active, #suspend:hover {
+	background-color: #FAB387; /* Peach */
+	color: #FFFFFF;
+}
+
+/* Hibernate */
+#hibernate {
+	background-image: image(url("/usr/share/wlogout/icons/hibernate.png"), url("/usr/local/share/wlogout/icons/hibernate.png"));
+}
+
+#hibernate:focus, #hibernate:active, #hibernate:hover {
+	background-color: #F9E2AF; /* Yellow */
+	color: #FFFFFF;
+}
+
+/* Shutdown */
+#shutdown {
+	background-image: image(url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));
+}
+
+#shutdown:focus, #shutdown:active, #shutdown:hover {
+	background-color: #F38BA8; /* Red */
+	color: #FFFFFF;
+}
+
+/* Reboot */
+#reboot {
+	background-image: image(url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
+}
+
+#reboot:focus, #reboot:active, #reboot:hover {
+	background-color: #A6E3A1; /* Green */
+	color: #FFFFFF;
+}
+
