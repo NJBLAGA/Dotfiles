@@ -13,6 +13,8 @@ set -o vi
 alias to_bash='exec bash'
 alias to_zsh='exec zsh'
 alias new_tmux='tmux new -s'
+alias timeshift='pkexec env DISPLAY=$DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR WAYLAND_DISPLAY=$WAYLAND_DISPLAY timeshift-gtk
+'
 # ls
 alias ls="colorls"
 #vpn - Australia

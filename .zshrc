@@ -13,6 +13,9 @@ alias to_bash='exec bash'
 alias to_zsh='exec zsh'
 alias check_shell='if [ -n "$BASH_VERSION" ]; then echo "You are running bash, version $BASH_VERSION"; else echo "You are NOT running bash"; fi'
 alias new_tmux='tmux new -s'
+# timeshift
+alias timeshift='pkexec env DISPLAY=$DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR WAYLAND_DISPLAY=$WAYLAND_DISPLAY timeshift-gtk
+'
 # lg
 alias ls="colorls"
 #vpn - Australia
