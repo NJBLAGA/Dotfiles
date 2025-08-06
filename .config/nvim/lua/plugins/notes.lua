@@ -36,16 +36,12 @@ return {
             local creation_ts = os.date("%Y-%m-%d %H:%M:%S %Z")
 
             local lines = {
-              "# 📝 " .. input,
-              "",
-              "--------",
-              "",
-              "⏰ Created: " .. creation_ts,
-              "",
-              "✍️ Last Modified: " .. creation_ts,
-              "",
-              "## Linked Notes:",
-              "",
+              "# 📝 **" .. input .. "**",
+              "_____________________________ ",
+              "⏰ *Created: " .. creation_ts .. "*",
+              "✍️ *Last Modified: " .. creation_ts .. "*",
+              "_____________________________ ",
+              "## **Linked Notes:**",
             }
 
             vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
