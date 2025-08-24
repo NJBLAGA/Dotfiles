@@ -106,3 +106,9 @@ eval "$(zoxide init --cmd cd zsh)"
 
 export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 
+# Add pipx binaries to PATH temporarily
+export PATH="$HOME/.local/bin:$PATH"
+
+
+# Created by `pipx` on 2025-08-23 23:32:13
+export PATH="$PATH:/home/njblaga/.local/bin"
