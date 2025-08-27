@@ -1,6 +1,6 @@
 return {
   "iamcco/markdown-preview.nvim",
-  build = "cd app && npm install",
-  ft = "markdown",
-  config = function() end,
+  ft = { "markdown" },
+  build = "cd app && rm -rf node_modules && npm install",
+  cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
 }

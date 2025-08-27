@@ -8,6 +8,9 @@ bindkey -v
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/njblaga/.zshrc' 
 
+
+export BROWSER=/usr/bin/zen
+
 # shells
 alias to_bash='exec bash'
 alias to_zsh='exec zsh'
