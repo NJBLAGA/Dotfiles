@@ -1,5 +1,5 @@
 return {
-  { -- was missing this
+  { -- Catppuccin theme
     "catppuccin/nvim",
     lazy = true,
     name = "catppuccin",
@@ -38,13 +38,29 @@ return {
         treesitter = true,
         treesitter_context = true,
         which_key = true,
+        bufferline = true, -- 👈 this is enough
       },
     },
-  }, -- and this
-  {
+  },
+
+  { -- LazyVim with catppuccin as colorscheme
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "catppuccin-mocha",
     },
+  },
+
+  { -- Bufferline
+    "akinsho/bufferline.nvim",
+    version = "*",
+    dependencies = { "catppuccin/nvim" },
+    config = function()
+      require("bufferline").setup({
+        options = {
+          separator_style = "slant",
+          diagnostics = "nvim_lsp",
+        },
+      })
+    end,
   },
 }

@@ -1,9 +1,13 @@
 return {
   "akinsho/bufferline.nvim",
-  init = function()
-    local bufline = require("catppuccin.groups.integrations.bufferline")
-    function bufline.get()
-      return bufline.get_theme()
-    end
+  version = "*",
+  dependencies = { "catppuccin/nvim" },
+  config = function()
+    require("bufferline").setup({
+      options = {
+        separator_style = "slant",
+        diagnostics = "nvim_lsp",
+      },
+    })
   end,
 }
