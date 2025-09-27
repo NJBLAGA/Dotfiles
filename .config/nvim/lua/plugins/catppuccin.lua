@@ -38,8 +38,26 @@ return {
         treesitter = true,
         treesitter_context = true,
         which_key = true,
-        bufferline = true, -- 👈 this is enough
+        bufferline = true,
       },
+      --- 🔽 Add this
+      custom_highlights = function(c)
+        return {
+          -- Blink completion menu & docs
+          BlinkCmpMenu = { bg = "NONE" },
+          BlinkCmpMenuBorder = { bg = "NONE" },
+          BlinkCmpDoc = { bg = "NONE" },
+          BlinkCmpDocBorder = { bg = "NONE" },
+          BlinkCmpSignatureHelp = { bg = "NONE" },
+          BlinkCmpSignatureHelpBorder = { bg = "NONE" },
+
+          -- fallback for older cmp/popup groups
+          Pmenu = { bg = "NONE" },
+          PmenuSel = { bg = c.surface0 }, -- keep selection visible
+          NormalFloat = { bg = "NONE" },
+          FloatBorder = { bg = "NONE" },
+        }
+      end,
     },
   },
 
