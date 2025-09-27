@@ -78,6 +78,18 @@ fzf_history_confirm() {
   fi
 }
 
+start_tmux_njblaga() {
+  if tmux has-session -t njblaga 2>/dev/null; then
+    tmux attach -t njblaga
+  else
+    tmux new -s njblaga
+  fi
+}
+
+if [[ -z "$TMUX" ]]; then
+  start_tmux_njblaga
+fi
+
 # Default apps
 export EDITOR="nvim"
 export TERMINAL="ghosty"

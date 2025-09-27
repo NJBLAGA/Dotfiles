@@ -1,13 +1,9 @@
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
 bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
 zstyle :compinstall filename '/home/njblaga/.zshrc' 
-
 
 export BROWSER=/usr/bin/zen
 
@@ -15,7 +11,6 @@ export BROWSER=/usr/bin/zen
 alias to_bash='exec bash'
 alias to_zsh='exec zsh'
 alias check_shell='if [ -n "$BASH_VERSION" ]; then echo "You are running bash, version $BASH_VERSION"; else echo "You are NOT running bash"; fi'
-alias new_tmux='tmux new -s'
 # timeshift
 alias timeshift='pkexec env DISPLAY=$DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR WAYLAND_DISPLAY=$WAYLAND_DISPLAY timeshift-gtk
 '
@@ -57,6 +52,17 @@ open_func() {
     done
   fi
 }
+
+start_tmux_njblaga() {
+  if tmux has-session -t njblaga 2>/dev/null; then
+    tmux attach -t njblaga
+  else
+    tmux new -s njblaga
+  fi
+}
+if [[ -z "$TMUX" ]]; then
+  start_tmux_njblaga
+fi
 
 # search files
 bindkey -s '\e ' 'fzf_preview_bat\n'
@@ -111,7 +117,6 @@ export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 
 # Add pipx binaries to PATH temporarily
 export PATH="$HOME/.local/bin:$PATH"
-
 
 # Created by `pipx` on 2025-08-23 23:32:13
 export PATH="$PATH:/home/njblaga/.local/bin"
