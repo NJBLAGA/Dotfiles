@@ -120,3 +120,4 @@ export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 
 # Add pipx binaries to PATH
 export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:$HOME/go/bin

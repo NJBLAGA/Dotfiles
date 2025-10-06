@@ -120,3 +120,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Created by `pipx` on 2025-08-23 23:32:13
 export PATH="$PATH:/home/njblaga/.local/bin"
+export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:$HOME/go/bin
